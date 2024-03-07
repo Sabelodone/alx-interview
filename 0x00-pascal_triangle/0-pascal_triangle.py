@@ -1,29 +1,23 @@
 #!/usr/bin/python3
 
-
 def pascal_triangle(n):
+    """
+    Returns a list of lists of integers representing Pascal's Triangle of n
+    Returns an empty list if n <= 0
+    """
     if n <= 0:
         return []
 
-    triangle = []
+    triangle = [[1]]
 
-    for row in range(n):
-        current_row = []
-        for col in range(row + 1):
-            if col == 0 or col == row:
-                current_row.append(1)
-            else:
-                # Calculate element using combination formula
-                element = triangle[row - 1][col - 1] + triangle[row - 1][col]
-                current_row.append(element)
-        triangle.append(current_row)
+    for _ in range(1, n):
+        prev_row = triangle[-1]
+        new_row = [1]
+
+        for j in range(len(prev_row) - 1):
+            new_row.append(prev_row[j] + prev_row[j + 1])
+
+        new_row.append(1)
+        triangle.append(new_row)
 
     return triangle
-
-def print_triangle(triangle):
-    for row in triangle:
-        print("[{}]".format(",".join(map(str, row))))
-
-if __name__ == "__main__":
-    triangle = pascal_triangle(5)
-    print_triangle(triangle)
