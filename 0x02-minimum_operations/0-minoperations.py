@@ -1,22 +1,19 @@
 #!/usr/bin/python3
-def minOperations(n: int) -> int:
+
+def minOperations(n):
     """
-    Finds the minimum operations needed to result in exactly n H characters in a file
+    Single character H
+    Fewest number of operations
     """
+
     if n <= 1:
         return 0
+    numbr, index, operations = n, 2, 0
 
-    operations = 0
-    current_chars = 1
-    clipboard = 0
-
-    while current_chars < n:
-        if n % current_chars == 0:  # If current characters evenly divides n
-            clipboard = current_chars
-            current_chars += clipboard
-            operations += 1
+    while numbr > 1:
+        if numbr % index == 0:
+            numbr = numbr / index
+            operations = operations + index
         else:
-            current_chars += clipboard
-            operations += 1
-
+            index += 1
     return operations
