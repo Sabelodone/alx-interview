@@ -1,25 +1,22 @@
 #!/usr/bin/python3
-""" Minimum operations questions
-    Topic: Dynamic programming
-"""
-
-
 def minOperations(n: int) -> int:
-    """ Finds the minimum operations needed
-        to result in exactly nH characters in
-        a file
     """
-    available_chars = 1
-    pending_chars = n - 1
-    copied_chars = 0
-    ops = 0
+    Finds the minimum operations needed to result in exactly n H characters in a file
+    """
+    if n <= 1:
+        return 0
 
-    while (pending_chars > 0):
-        if copied_chars and pending_chars % available_chars:
-            ops += 1
+    operations = 0
+    current_chars = 1
+    clipboard = 0
+
+    while current_chars < n:
+        if n % current_chars == 0:  # If current characters evenly divides n
+            clipboard = current_chars
+            current_chars += clipboard
+            operations += 1
         else:
-            copied_chars = available_chars
-            ops = ops + 2
-        available_chars += copied_chars
-        pending_chars -= copied_chars
-    return ops
+            current_chars += clipboard
+            operations += 1
+
+    return operations
