@@ -25,9 +25,9 @@ def signal_handler(sig, frame):
 def print_stats():
     global total_file_size
     print("File size: {}".format(total_file_size))
-    for code, count in sorted(status_counts.items()):
-        if count > 0:
-            print("{}: {}".format(code, count))
+    for code in sorted(status_counts.keys()):
+        if status_counts[code] > 0:
+            print("{}: {}".format(code, status_counts[code]))
 
 def parse_line(line):
     parts = line.split()
@@ -48,7 +48,7 @@ def main():
         if status_code is not None and status_code in status_counts:
             status_counts[status_code] += 1
             total_file_size += file_size
-            line_count += 1
+        line_count += 1
         if line_count % 10 == 0:
             print_stats()
 
