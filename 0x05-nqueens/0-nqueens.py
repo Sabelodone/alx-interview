@@ -5,7 +5,7 @@ Solution to the nqueens problem
 import sys
 
 
-def backtrack(r, n, cols, pos, neg, board, solutions):
+def backtrack(r, n, cols, pos, neg, board):
     """
     backtrack function to find solution
     """
@@ -15,7 +15,7 @@ def backtrack(r, n, cols, pos, neg, board, solutions):
             for k in range(len(board[l])):
                 if board[l][k] == 1:
                     res.append([l, k])
-        solutions.append(res)
+        print(res)
         return
 
     for c in range(n):
@@ -27,7 +27,7 @@ def backtrack(r, n, cols, pos, neg, board, solutions):
         neg.add(r - c)
         board[r][c] = 1
 
-        backtrack(r+1, n, cols, pos, neg, board, solutions)
+        backtrack(r+1, n, cols, pos, neg, board)
 
         cols.remove(c)
         pos.remove(r + c)
@@ -48,25 +48,21 @@ def nqueens(n):
     pos_diag = set()
     neg_diag = set()
     board = [[0] * n for i in range(n)]
-    solutions = []
 
-    backtrack(0, n, cols, pos_diag, neg_diag, board, solutions)
-
-    for solution in solutions:
-        print(solution)
+    backtrack(0, n, cols, pos_diag, neg_diag, board)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    n = sys.argv
+    if len(n) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
-
     try:
-        n = int(sys.argv[1])
-        if n < 4:
+        nn = int(n[1])
+        if nn < 4:
             print("N must be at least 4")
             sys.exit(1)
-        nqueens(n)
+        nqueens(nn)
     except ValueError:
         print("N must be a number")
         sys.exit(1)
