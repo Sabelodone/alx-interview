@@ -5,7 +5,7 @@ Solution to the nqueens problem
 import sys
 
 
-def backtrack(r, n, cols, pos, neg, board):
+def backtrack(r, n, cols, pos, neg, board, solutions):
     """
     backtrack function to find solution
     """
@@ -15,9 +15,9 @@ def backtrack(r, n, cols, pos, neg, board):
             for k in range(len(board[l])):
                 if board[l][k] == 1:
                     res.append([l, k])
-        return res
+        solutions.append(res)
+        return
 
-    solutions = []
     for c in range(n):
         if c in cols or (r + c) in pos or (r - c) in neg:
             continue
@@ -27,14 +27,12 @@ def backtrack(r, n, cols, pos, neg, board):
         neg.add(r - c)
         board[r][c] = 1
 
-        solutions.extend(backtrack(r+1, n, cols, pos, neg, board))
+        backtrack(r+1, n, cols, pos, neg, board, solutions)
 
         cols.remove(c)
         pos.remove(r + c)
         neg.remove(r - c)
         board[r][c] = 0
-
-    return solutions
 
 
 def nqueens(n):
@@ -50,8 +48,9 @@ def nqueens(n):
     pos_diag = set()
     neg_diag = set()
     board = [[0] * n for i in range(n)]
+    solutions = []
 
-    solutions = backtrack(0, n, cols, pos_diag, neg_diag, board)
+    backtrack(0, n, cols, pos_diag, neg_diag, board, solutions)
 
     for solution in solutions:
         print(solution)
