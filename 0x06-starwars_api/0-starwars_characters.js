@@ -28,7 +28,9 @@ function makeRequest (url) {
   
     if (args.length < 3) return;
   
-    const movieUrl = `https://swapi.dev/api/films/${movieId}/` + args[2];
+
+    const movieUrl = `https://swapi.dev/api/films/${args[2]}/`;
+
     const movie = await makeRequest(movieUrl);
   
     if (movie.characters === undefined) return;
