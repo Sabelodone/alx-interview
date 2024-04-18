@@ -1,5 +1,4 @@
 #!/usr/bin/node
-
 /**
  * Wrapper function for request object that allows it
  * to work with async and await
@@ -26,12 +25,13 @@ function makeRequest (url) {
    */
   async function main () {
     const args = process.argv;
-    if (args.length < 3) return;
-    const movieUrl = 'https://swapi-api.alx-tools.com/api/films/' + args[2];
-
-    const movie = await makeRequest(movieUrl);
-    if (movie.characters === undefined) return;
   
+    if (args.length < 3) return;
+  
+    const movieUrl = `https://swapi.dev/api/films/${movieId}/` + args[2];
+    const movie = await makeRequest(movieUrl);
+  
+    if (movie.characters === undefined) return;
     for (const characterUrl of movie.characters) {
       const character = await makeRequest(characterUrl);
       console.log(character.name);
@@ -39,4 +39,3 @@ function makeRequest (url) {
   }
   
   main();
-  
